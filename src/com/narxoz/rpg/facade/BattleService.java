@@ -7,31 +7,37 @@ import com.narxoz.rpg.hero.HeroProfile;
 import java.util.Random;
 
 public class BattleService {
-    private Random random = new Random(1L);
+    private Random random=new Random(1L);
 
     public BattleService setRandomSeed(long seed) {
-        this.random = new Random(seed);
+        this.random=new Random(seed);
         return this;
     }
 
     public AdventureResult battle(HeroProfile hero, BossEnemy boss, AttackAction action) {
-        // TODO: Implement the battle flow.
-        // Questions to answer:
-        // - Who attacks first?
-        // - How many rounds are allowed?
-        // - How is damage resolved?
-        // - How will randomness affect the result, if at all?
-        AdventureResult result = new AdventureResult();
-        result.setWinner("TODO");
-        result.setRounds(0);
-        result.setReward("TODO");
-        result.addLine("TODO: implement battle logic");
+        AdventureResult result=new AdventureResult();
+        int round=0;
+        while (hero.isAlive()&&boss.isAlive()&&round<15) {
+            round++;
 
-        // Keep the field in use so students can decide whether to rely on it.
-        if (random.nextInt(1) == 0) {
-            // TODO: Replace placeholder branch with real deterministic or random logic.
+            int finalDamage=action.getDamage();
+            if (random.nextInt(100)<15) {
+                finalDamage*=2;
+                result.addLine("!!! CRITICAL HIT !!!");}
+
+            boss.takeDamage(finalDamage);
+            result.addLine("Round "+round+": "+hero.getName()+" hits for "+finalDamage+" damage ("+action.getActionName()+").");
+            if (!boss.isAlive()) break;
+
+            int bossDmg=boss.getAttackPower();
+            if (random.nextInt(100)<10){
+                result.addLine("The Boss missed his attack!");
+            } else {
+                hero.takeDamage(bossDmg);
+                result.addLine("Boss hits back for "+bossDmg+" HP.");}
         }
 
-        return result;
-    }
+        result.setRounds(round);
+        result.setWinner(hero.isAlive()?hero.getName():boss.getName());
+        return result;}
 }
