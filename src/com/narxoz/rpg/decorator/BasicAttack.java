@@ -10,20 +10,9 @@ public class BasicAttack implements AttackAction {
     }
 
     @Override
-    public String getActionName() {
-        // TODO: Return the base name of the action.
-        return actionName;
-    }
-
+    public String getActionName() { return actionName; }
     @Override
-    public int getDamage() {
-        // TODO: Return the base damage before decorators modify it.
-        return baseDamage;
-    }
-
+    public int getDamage() { return baseDamage; }
     @Override
-    public String getEffectSummary() {
-        // TODO: Decide how a plain attack should describe its effects.
-        return "TODO";
-    }
+    public String getEffectSummary() { return "Physical strike"; }
 }
