@@ -6,20 +6,14 @@ public class CriticalFocusDecorator extends ActionDecorator {
     }
 
     @Override
-    public String getActionName() {
-        // TODO: Decide how this decorator changes the visible action name.
-        return super.getActionName();
-    }
+    public String getActionName(){
+        return "Focused "+super.getActionName();}
 
     @Override
-    public int getDamage() {
-        // TODO: Add critical-related behavior on top of wrapped damage.
-        return super.getDamage();
-    }
+    public int getDamage(){
+        return super.getDamage()+20;}
 
     @Override
-    public String getEffectSummary() {
-        // TODO: Append or compose the critical effect description.
-        return super.getEffectSummary();
-    }
+    public String getEffectSummary(){
+        return super.getEffectSummary()+", High Precision";}
 }
